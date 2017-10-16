@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="./style.css" rel="stylesheet" />
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+        <script src="./scripts/config/config.js"></script>
+        <script src="./scripts/main.js"></script>
+    </head>    
+    <body>  
+            <div class="modal show" id="login-modal"  role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog">
+                    <div class="loginmodal-container">
+                        <h1>Login to Your Account</h1><br>
+                        <form id="login-form">
+                        <input type="text" name="user" id="login" placeholder="Username">
+                        <input type="password" name="pass" id="pass" placeholder="Password">
+                        <input type="submit" name="login" id="send" class="login loginmodal-submit" value="Login">
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>

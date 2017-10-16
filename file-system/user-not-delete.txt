@@ -1,0 +1,1 @@
+Allmost access for admin and user (rw), others - read only
