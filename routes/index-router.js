@@ -7,21 +7,23 @@ const fileSystemRouter = require('./file-system.routes');
 
 router.use('/auth',authRouter);
 router.use((req,res,next)=>{
-    const rawToken = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers.authorization.split(' ');
-
+   
+    let rawToken = '';
+    if(req.headers.authorization){
+        rawToken =  req.headers.authorization.split(' ');
+     
+    }else{
+        rawToken = req.body.token || req.query.token || req.headers['x-access-token'];
+    }
     let token = null;
-    if(rawToken.length == 2){
+    if(rawToken && rawToken.length == 2){
         const schema = rawToken[0];
         const credentials = rawToken[1];
-        if(/^Bearer$/i.test(schema)){
-            token = credentials;
-        }else{
-            res.send({success:false,msg:"Failed to auth token"})
-        }
+        token = credentials;
     }else{
         token = rawToken;
     }
-
+  
     if(token){
         jwt.verify(token,config.secret,(err,decoded)=>{
             if(err){

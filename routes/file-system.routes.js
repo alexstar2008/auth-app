@@ -12,10 +12,10 @@ router.get('/',(req,res,next)=>{
 });
 // File operations
 router.get('/file/:name',(req,res,next)=>{
-    const {role} = req.token;
+    const {role,name} = req.token;
     const fileName  = req.params.name;
 
-    fileSystemController.getFile(role,fileName).then((data)=>{
+    fileSystemController.getFile(role,fileName,name).then((data)=>{
         res.status(200).send(data);
     }).catch(({err,code=500})=>{
         console.log(code);
@@ -23,19 +23,19 @@ router.get('/file/:name',(req,res,next)=>{
     });
 });
 router.delete('/file/:name',(req,res,next)=>{
-    const {role} = req.token;
+    const {role,name} = req.token;
     const fileName = req.params.name;
-    fileSystemController.removeFile(role,fileName).then((msg)=>{
+    fileSystemController.removeFile(role,fileName,name).then((msg)=>{
         res.status(200).send(msg);
     }).catch(({err,code=500})=>{
         res.status(code).send(`Error:${err}`);
     });
 });
 router.post('/file',(req,res,next)=>{
-    const {role} = req.token;
+    const {role,name} = req.token;
     const {fileName,content} = req.body;
 
-    fileSystemController.updateFile(role,fileName,content).then((msg)=>{
+    fileSystemController.updateFile(role,fileName,content,name).then((msg)=>{
         res.status(200).send(msg);
     }).catch(({err,code=500})=>{
         res.status(code).send(`Error:${err}`);
@@ -53,11 +53,11 @@ router.get('/permissions/:name',(req,res,next)=>{
     });
 });
 router.post('/permissions',(req,res,next)=>{
-    // const {name} = req.token;
+    const {role,name} = req.token;
 
     const {file,permissions} = req.body;
-
-    fileSystemController.setFilePermissions(file,permissions).then((msg)=>{
+    
+    fileSystemController.setFilePermissions(role,file,permissions,name).then((msg)=>{
         res.status(200).send(msg);
     }).catch(({err,code=500})=>{
         res.status(code).send(`Error:${err}`);

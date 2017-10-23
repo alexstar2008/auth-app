@@ -31,7 +31,7 @@ function postPermissions(fileName,permissions){
         permissions
     }
     httpService.post(`/fs/permissions`,body).then((data)=>{
-        console.log('success');
+        alert(data);
     }).catch((err)=>{
         alert(`Error:${err}`);
     })
@@ -39,6 +39,7 @@ function postPermissions(fileName,permissions){
 function delFile(fileName){
     httpService.del(`/fs/file/${fileName}`).then((data)=>{
         alert('Success delete');
+        location.reload();
     }).catch((err)=>{
         console.log(err);
     });

@@ -31,6 +31,7 @@ function http(){
         return new Promise((resolve,reject)=>{
             const xhr = new XMLHttpRequest();
             xhr.open("POST",config.api + url);
+            console.log(localStorage.token);
             xhr.setRequestHeader("Authorization",`Bearer ${localStorage.token}`);
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.onreadystatechange = function(){

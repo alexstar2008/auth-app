@@ -17,6 +17,7 @@ function savePermissions(target){
         permissions[user] = perms;
     });
     postPermissions(fileName,permissions);
+    closeModalPermissions();
 }
 function saveFile(target){
     const fileName = $(".modal-title").html();
@@ -34,6 +35,10 @@ function deleteFile(target){
 // view change
 function changeBackColor(element){
     $(element).toggleClass('file-selected');
+}
+function closeModalPermissions(){
+    $("#permission-content").text('');
+    $("#file-permissions").modal('hide');
 }
 function showModalContext(fileName,content){
     $(".modal-title").text(fileName);

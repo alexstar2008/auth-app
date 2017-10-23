@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const config = require('../config');
 const User = require('../models/user');
+const logger = require('../winston');
 
 const failedAccessCounter = {
     date:0,
@@ -42,6 +43,7 @@ const authController = function(){
                     reject({msg:'Error of connection to database'});
                 }
                 if(!user){
+                    logger.error(`user(${name})-auth failed-no user`);
                     reject({code:401,msg:'Authenticaiton failed. No such user'});
                 }else{
                     const hashedPass = crypto.createHmac('sha256','cybernetics').update(pass).digest('hex');
@@ -49,8 +51,9 @@ const authController = function(){
                         const token = jwt.sign(
                             {name:user.name,password:user.password,role:user.role},
                             config.secret,
-                            {expiresIn:1000*60*60*24}
+                            {expiresIn:1000*60*60*224}
                         );
+                        logger.info(`user(${name})-auth-success`);
                         resolve({
                             msg:'Successfully authenticated',
                             token
@@ -60,6 +63,7 @@ const authController = function(){
                         let freeze = false;
                         if(failedAccessCounter.freezeLogin())
                             freeze = true;
+                        logger.error(`user(${name})-auth failed-incorrect password`);
                         reject({
                             code:401,
                             freeze,

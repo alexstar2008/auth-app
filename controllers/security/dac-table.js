@@ -23,19 +23,19 @@ const dacMatrix = {
         'user-not-delete.txt':'rw',
         'haos.txt':'rwdo',
     },
-    "home-group":{
+    "homeGroup":{
         'public.txt':'rwd',
         'admin.txt':'',
         'read-only.txt':'r',
         'read-write-only.txt':'rw',
         'work-group.txt':'',
         'home-group.txt':'rwdo',
-        'user.txt':'',
+        'user.txt':'',  
         'user-prime.txt':'rw',
         'user-not-delete.txt':'r',
         'haos.txt':'rwdo',
     },
-    "work-group":{
+    "workGroup":{
         'public.txt':'rwd',
         'admin.txt':'',
         'read-only.txt':'r',
@@ -61,8 +61,8 @@ const setPermission = (user,file,permission)=>{
 const getFilePermissions = (user, file)=>{
     const permissions = {};
     for(let key in dacMatrix){
-        if(key === user)
-            continue;
+        // if(key === user)
+        //     continue;
         permissions[key] = getPermission(key,file) || '';
     }
     return permissions;
@@ -94,6 +94,7 @@ module.exports = {
     isReadAllowed,
     isWriteAllowed,
     isDeleteAllowed,
+    isOwner,
     getFilePermissions,
     setFilePermissions
 };
