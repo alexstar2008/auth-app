@@ -3,9 +3,9 @@
 const winston = require('winston');
 const { combine, timestamp, label, printf } = winston.format;
 
-const auditFormat = printf(info => {
-    return `${info.timestamp}[${info.level}]: ${info.message}`;
-  });
+    const auditFormat = printf(info => {
+        return `${info.timestamp}[${info.level}]: ${info.message}`;
+    });
 
 const logger = winston.createLogger({
     level:'info',
